@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Status på sager – Fairkredit Portal</title>
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="page-portal">
+
+  <%- include('partials/topbar') %>
+
+  <main class="container py-12">
+    <a href="/portal" class="btn-back">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Tilbage til dashboard
+    </a>
+
+    <div class="mb-8">
+      <h2>Status på sager</h2>
+      <p class="text-muted">Oversigt over dine indsendte henvisninger og deres status</p>
+    </div>
+
+    <!-- Søgefelt -->
+    <div class="search-wrapper mb-6">
+      <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="caseSearch" class="input search-input" placeholder="Søg efter sagsnummer, kunde eller adresse...">
+    </div>
+
+    <!-- Tabel -->
+    <div class="card p-0 overflow-hidden">
+      <div class="table-wrapper">
+        <table class="data-table" id="casesTable">
+          <thead>
+            <tr>
+              <th>Sagsnummer</th>
+              <th>Kunde</th>
+              <th>Bolig</th>
+              <th>Status</th>
+              <th>Dato</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% cases.forEach(function(c) { %>
+              <tr>
+                <td class="text-primary fw-medium"><%= c.id %></td>
+                <td><%= c.client %></td>
+                <td class="text-muted"><%= c.property %></td>
+                <td><span class="status-badge <%= c.statusClass %>"><%= c.status %></span></td>
+                <td class="text-muted"><%= c.date %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Statistik -->
+    <div class="stats-row mt-8">
+      <div class="card stat-card">
+        <p class="stat-value text-primary"><%= stats.total %></p>
+        <p class="text-muted text-sm">Totalt antal sager</p>
+      </div>
+      <div class="card stat-card">
+        <p class="stat-value" style="color:#16a34a"><%= stats.approved %></p>
+        <p class="text-muted text-sm">Godkendte</p>
+      </div>
+      <div class="card stat-card">
+        <p class="stat-value" style="color:#ca8a04"><%= stats.pending %></p>
+        <p class="text-muted text-sm">Under behandling</p>
+      </div>
+      <div class="card stat-card">
+        <p class="stat-value" style="color:#2563eb"><%= stats.waiting %></p>
+        <p class="text-muted text-sm">Afventer dokumentation</p>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/cases.js"></script>
+</body>
+</html>

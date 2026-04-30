@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KPI Oversigt – Fairkredit Portal</title>
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="page-portal">
+
+  <%- include('partials/topbar') %>
+
+  <main class="container py-12">
+    <a href="/portal" class="btn-back">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Tilbage til dashboard
+    </a>
+
+    <div class="mb-8">
+      <h2>KPI Oversigt</h2>
+      <p class="text-muted">Dine nøgletal og performance metrics</p>
+    </div>
+
+    <!-- KPI kort -->
+    <div class="kpi-grid mb-12">
+      <% kpis.forEach(function(kpi) { %>
+        <div class="card kpi-card">
+          <p class="text-muted text-sm mb-2"><%= kpi.title %></p>
+          <p class="kpi-value"><%= kpi.value %></p>
+          <div class="kpi-trend">
+            <% if (kpi.trend === 'up') { %>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              <span class="trend-up"><%= kpi.change %></span>
+            <% } else { %>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>
+              <span class="trend-down"><%= kpi.change %></span>
+            <% } %>
+            <span class="text-muted text-sm"><%= kpi.period %></span>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+
+    <!-- Månedstabel -->
+    <div class="card mb-8">
+      <h3 class="mb-6">Månedsvis performance 2026</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Måned</th>
+              <th class="text-right">Indsendte leads</th>
+              <th class="text-right">Godkendte</th>
+              <th class="text-right">Godkendelsesrate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% monthly.forEach(function(row) { %>
+              <tr>
+                <td><%= row.month %></td>
+                <td class="text-right text-muted"><%= row.leads %></td>
+                <td class="text-right text-muted"><%= row.approved %></td>
+                <td class="text-right text-primary fw-medium"><%= row.rate %>%</td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Highlights -->
+    <div class="highlight-grid">
+      <div class="highlight-card highlight-primary">
+        <h3>Top Performance</h3>
+        <p class="highlight-value">94%</p>
+        <p class="text-sm" style="opacity:.9">Din godkendelsesrate er 9% over gennemsnittet</p>
+      </div>
+      <div class="highlight-card highlight-dark">
+        <h3>Hurtigste behandling</h3>
+        <p class="highlight-value">2.1 dage</p>
+        <p class="text-sm" style="opacity:.9">Din hurtigste sagsbehandlingstid denne måned</p>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

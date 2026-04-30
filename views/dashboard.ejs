@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard – Fairkredit Portal</title>
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="page-portal">
+
+  <%- include('partials/topbar') %>
+
+  <main class="container py-12">
+    <div class="mb-12">
+      <h1>Velkommen til Fairkredit Portal</h1>
+      <p class="text-muted text-lg">Vælg en handling nedenfor for at komme i gang</p>
+    </div>
+
+    <div class="menu-grid">
+      <a href="/portal/create-lead" class="menu-card">
+        <div class="menu-card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <h3>Opret nyt lead</h3>
+        <p>Indsend nye kundehenvisninger til Fairkredit</p>
+      </a>
+
+      <a href="/portal/cases" class="menu-card">
+        <div class="menu-card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <h3>Se status på sager</h3>
+        <p>Følg dine henvisninger og se behandlingsstatus</p>
+      </a>
+
+      <a href="/portal/kpi" class="menu-card">
+        <div class="menu-card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <h3>Se KPI'er</h3>
+        <p>Få indblik i dine nøgletal og performance</p>
+      </a>
+    </div>
+
+    <div class="card mt-12">
+      <h3 class="mb-4">Hurtig oversigt</h3>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <p class="stat-value">12</p>
+          <p class="text-muted text-sm">Aktive leads</p>
+        </div>
+        <div class="stat-item">
+          <p class="stat-value">8</p>
+          <p class="text-muted text-sm">Afsluttede denne måned</p>
+        </div>
+        <div class="stat-item">
+          <p class="stat-value">94%</p>
+          <p class="text-muted text-sm">Godkendelsesrate</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

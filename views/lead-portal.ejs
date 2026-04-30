@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Opret nyt lead – Fairkredit Portal</title>
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="page-portal">
+
+  <%- include('partials/topbar') %>
+
+  <main class="container py-12">
+    <a href="/portal" class="btn-back">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Tilbage til dashboard
+    </a>
+
+    <div class="mb-8">
+      <h2>Opret nyt lead</h2>
+      <p class="text-muted">Udfyld kundens oplysninger og send direkte til vores kreditkonsulenter</p>
+    </div>
+
+    <% if (success) { %>
+      <div class="alert alert-success mb-8" id="successMsg">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <div>
+          <p><strong>Lead sendt succesfuldt!</strong></p>
+          <p class="text-sm">Kunden er nu oprettet i Fairkredits CRM system.</p>
+        </div>
+      </div>
+    <% } %>
+
+    <div class="card" style="max-width:900px">
+      <form action="/portal/create-lead" method="POST" novalidate id="leadForm">
+
+        <!-- Debitor 1 -->
+        <section class="form-section">
+          <h3 class="section-title">Debitor 1 – Kundeoplysninger</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="primaryName">Navn <span class="required">*</span></label>
+              <input
+                id="primaryName" name="primaryName" type="text" class="input <%= errors.primaryName ? 'input-error' : '' %>"
+                placeholder="Indtast fulde navn"
+                value="<%= typeof formData !== 'undefined' && formData.primaryName ? formData.primaryName : '' %>"
+              >
+              <% if (errors.primaryName) { %><span class="field-error"><%= errors.primaryName %></span><% } %>
+            </div>
+
+            <div class="form-group">
+              <label for="primaryPhone">Telefonnummer <span class="required">*</span></label>
+              <input
+                id="primaryPhone" name="primaryPhone" type="tel" class="input <%= errors.primaryPhone ? 'input-error' : '' %>"
+                placeholder="+45 12 34 56 78"
+                value="<%= typeof formData !== 'undefined' && formData.primaryPhone ? formData.primaryPhone : '' %>"
+              >
+              <% if (errors.primaryPhone) { %><span class="field-error"><%= errors.primaryPhone %></span><% } %>
+            </div>
+
+            <div class="form-group col-span-2">
+              <label for="primaryEmail">Email <span class="required">*</span></label>
+              <input
+                id="primaryEmail" name="primaryEmail" type="email" class="input <%= errors.primaryEmail ? 'input-error' : '' %>"
+                placeholder="navn@eksempel.dk"
+                value="<%= typeof formData !== 'undefined' && formData.primaryEmail ? formData.primaryEmail : '' %>"
+              >
+              <% if (errors.primaryEmail) { %><span class="field-error"><%= errors.primaryEmail %></span><% } %>
+            </div>
+
+            <div class="form-group col-span-2">
+              <label for="property">Bolig de ønsker at købe <span class="required">*</span></label>
+              <input
+                id="property" name="property" type="text" class="input <%= errors.property ? 'input-error' : '' %>"
+                placeholder="Adresse på bolig"
+                value="<%= typeof formData !== 'undefined' && formData.property ? formData.property : '' %>"
+              >
+              <% if (errors.property) { %><span class="field-error"><%= errors.property %></span><% } %>
+            </div>
+
+            <div class="form-group col-span-2">
+              <label for="notes">Noter</label>
+              <textarea id="notes" name="notes" class="input textarea" rows="4" placeholder="Uddybende oplysninger om kunden..."><%= typeof formData !== 'undefined' && formData.notes ? formData.notes : '' %></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- Co-applicant toggle -->
+        <div class="form-divider">
+          <label class="checkbox-label">
+            <input type="checkbox" name="hasCoApplicant" id="coApplicantToggle" value="1"
+              <%= typeof formData !== 'undefined' && formData.hasCoApplicant ? 'checked' : '' %>>
+            <span>Tilføj samlever (Debitor 2)</span>
+          </label>
+        </div>
+
+        <!-- Debitor 2 (skjult som standard) -->
+        <section id="coApplicantSection" class="form-section co-section" style="display:none">
+          <div class="co-applicant-box">
+            <h3 class="section-title">Debitor 2 – Samlever</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="coApplicantName">Navn</label>
+                <input id="coApplicantName" name="coApplicantName" type="text" class="input" placeholder="Indtast fulde navn"
+                  value="<%= typeof formData !== 'undefined' && formData.coApplicantName ? formData.coApplicantName : '' %>">
+              </div>
+              <div class="form-group">
+                <label for="coApplicantPhone">Telefonnummer</label>
+                <input id="coApplicantPhone" name="coApplicantPhone" type="tel" class="input" placeholder="+45 12 34 56 78"
+                  value="<%= typeof formData !== 'undefined' && formData.coApplicantPhone ? formData.coApplicantPhone : '' %>">
+              </div>
+              <div class="form-group col-span-2">
+                <label for="coApplicantEmail">Email</label>
+                <input id="coApplicantEmail" name="coApplicantEmail" type="email" class="input" placeholder="navn@eksempel.dk"
+                  value="<%= typeof formData !== 'undefined' && formData.coApplicantEmail ? formData.coApplicantEmail : '' %>">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Actions -->
+        <div class="form-actions">
+          <button type="reset" class="btn btn-secondary" id="resetBtn">Ryd formular</button>
+          <button type="submit" class="btn btn-primary flex-1">Send lead til Fairkredit</button>
+        </div>
+
+      </form>
+    </div>
+
+    <p class="text-center text-sm mt-8" style="color:#C5C5C4">Leads sendes direkte til Fairkredits CRM system</p>
+  </main>
+
+  <script src="/js/lead-portal.js"></script>
+</body>
+</html>
