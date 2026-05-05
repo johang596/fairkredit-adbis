@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const db = require('../db');
 
 // Auth middleware
 function requireAuth(req, res, next) {
@@ -10,41 +11,6 @@ function requireAuth(req, res, next) {
 }
 
 // Mock data
-const MOCK_CASES = [
-  {
-    id: 'FK-2026-001',
-    client: 'Peter Jensen',
-    property: 'Hovedgaden 12, 2100 København Ø',
-    status: 'Under behandling',
-    statusClass: 'status-pending',
-    date: '15-04-2026'
-  },
-  {
-    id: 'FK-2026-002',
-    client: 'Maria Hansen & Lars Pedersen',
-    property: 'Strandvejen 45, 2900 Hellerup',
-    status: 'Godkendt',
-    statusClass: 'status-approved',
-    date: '12-04-2026'
-  },
-  {
-    id: 'FK-2026-003',
-    client: 'Anne Nielsen',
-    property: 'Parkvej 8, 8000 Aarhus C',
-    status: 'Afventer dokumentation',
-    statusClass: 'status-waiting',
-    date: '10-04-2026'
-  },
-  {
-    id: 'FK-2026-004',
-    client: 'Thomas Andersen',
-    property: 'Skovvej 22, 5000 Odense C',
-    status: 'Godkendt',
-    statusClass: 'status-approved',
-    date: '08-04-2026'
-  }
-];
-
 const MOCK_KPIS = [
   { title: 'Totalt antal leads', value: '47', change: '+12%', trend: 'up', period: 'vs. sidste måned' },
   { title: 'Godkendelsesrate', value: '94%', change: '+3%', trend: 'up', period: 'vs. sidste måned' },
@@ -72,7 +38,7 @@ router.get('/', requireAuth, (req, res) => {
 
 // GET /portal/create-lead
 router.get('/create-lead', requireAuth, (req, res) => {
-  res.render('lead-portal', { user: req.session.user, success: false, errors: {} });
+  res.render('lead-portal', { user: req.session.user, success: false, errors: {}, formData: {} });
 });
 
 // POST /portal/create-lead
@@ -96,22 +62,40 @@ router.post('/create-lead', requireAuth, (req, res) => {
     });
   }
 
-  // Her ville man sende til CRM — mock success
-  console.log('Lead modtaget:', { primaryName, primaryPhone, primaryEmail, property, notes });
+  db.prepare(`
+    INSERT INTO leads (primary_name, primary_phone, primary_email, property, notes,
+      has_co_applicant, co_applicant_name, co_applicant_phone, co_applicant_email)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `).run(
+    primaryName, primaryPhone, primaryEmail, property, notes || null,
+    hasCoApplicant ? 1 : 0,
+    coApplicantName || null, coApplicantPhone || null, coApplicantEmail || null
+  );
 
   res.render('lead-portal', { user: req.session.user, success: true, errors: {}, formData: {} });
 });
 
 // GET /portal/cases
 router.get('/cases', requireAuth, (req, res) => {
-  const approved = MOCK_CASES.filter(c => c.status === 'Godkendt').length;
-  const pending = MOCK_CASES.filter(c => c.status === 'Under behandling').length;
-  const waiting = MOCK_CASES.filter(c => c.status === 'Afventer dokumentation').length;
+  const leads = db.prepare('SELECT * FROM leads ORDER BY created_at DESC').all();
+
+  const cases = leads.map(c => ({
+    id: `FK-${c.id}`,
+    client: c.primary_name,
+    property: c.property,
+    status: 'Under behandling',
+    statusClass: 'status-pending',
+    date: new Date(c.created_at).toLocaleDateString('da-DK')
+  }));
+
+  const approved = cases.filter(c => c.status === 'Godkendt').length;
+  const pending = cases.filter(c => c.status === 'Under behandling').length;
+  const waiting = cases.filter(c => c.status === 'Afventer dokumentation').length;
 
   res.render('cases', {
     user: req.session.user,
-    cases: MOCK_CASES,
-    stats: { total: MOCK_CASES.length, approved, pending, waiting }
+    cases,
+    stats: { total: cases.length, approved, pending, waiting }
   });
 });
 
