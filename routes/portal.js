@@ -59,6 +59,12 @@ const MOCK_MONTHLY = [
   { month: 'April', leads: 47, approved: 44 }
 ];
 
+// In-memory employees (mock)
+const MOCK_EMPLOYEES = [
+  { id: 1, name: 'Sofie Larsen', email: 'sofie@edc.dk', role: 'Ejendomsmægler' },
+  { id: 2, name: 'Jonas Madsen', email: 'jonas@edc.dk', role: 'Ejendomsmægler' }
+];
+
 // GET /portal — dashboard
 router.get('/', requireAuth, (req, res) => {
   res.render('dashboard', { user: req.session.user });
@@ -120,6 +126,17 @@ router.get('/kpi', requireAuth, (req, res) => {
     user: req.session.user,
     kpis: MOCK_KPIS,
     monthly: monthlyWithRate
+  });
+});
+
+// GET /portal/employees
+router.get('/employees', requireAuth, (req, res) => {
+  res.render('employees', {
+    user: req.session.user,
+    employees: MOCK_EMPLOYEES,
+    success: false,
+    errors: {},
+    formData: {}
   });
 });
 

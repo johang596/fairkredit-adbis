@@ -28,6 +28,11 @@ app.use(session({
 app.use('/', authRouter);
 app.use('/portal', portalRouter);
 
+// Redirect legacy /employees to /portal/employees
+app.get('/employees', (req, res) => {
+  res.redirect(301, '/portal/employees');
+});
+
 // 404
 app.use((req, res) => {
   res.redirect('/');

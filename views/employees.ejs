@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medarbejdere – Fairkredit Portal</title>
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="page-portal">
+
+  <%- include('partials/topbar') %>
+
+  <main class="container py-12">
+    <a href="/portal" class="btn-back">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Tilbage til dashboard
+    </a>
+
+    <div class="mb-8">
+      <h2>Medarbejdere</h2>
+      <p class="text-muted">Tilføj og administrer medarbejdere i portalen</p>
+    </div>
+
+    <% if (success) { %>
+      <div class="alert alert-success mb-8" id="successMsg">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <div>
+          <p><strong>Medarbejder oprettet!</strong></p>
+          <p class="text-sm">Den nye medarbejder er tilføjet til systemet.</p>
+        </div>
+      </div>
+    <% } %>
+
+    <div class="card" style="max-width:900px">
+      <form action="/portal/employees" method="POST" novalidate>
+
+        <section class="form-section">
+          <h3 class="section-title">Opret medarbejder</h3>
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="name">Navn <span class="required">*</span></label>
+              <input
+                id="name" name="name" type="text"
+                class="input <%= errors.name ? 'input-error' : '' %>"
+                placeholder="Indtast fulde navn"
+                value="<%= typeof formData !== 'undefined' && formData.name ? formData.name : '' %>"
+              >
+              <% if (errors.name) { %><span class="field-error"><%= errors.name %></span><% } %>
+            </div>
+
+            <div class="form-group">
+              <label for="role">Rolle <span class="required">*</span></label>
+              <input
+                id="role" name="role" type="text"
+                class="input <%= errors.role ? 'input-error' : '' %>"
+                placeholder="f.eks. Kreditkonsulent"
+                value="<%= typeof formData !== 'undefined' && formData.role ? formData.role : '' %>"
+              >
+              <% if (errors.role) { %><span class="field-error"><%= errors.role %></span><% } %>
+            </div>
+
+            <div class="form-group col-span-2">
+              <label for="email">Email <span class="required">*</span></label>
+              <input
+                id="email" name="email" type="email"
+                class="input <%= errors.email ? 'input-error' : '' %>"
+                placeholder="navn@fairkredit.dk"
+                value="<%= typeof formData !== 'undefined' && formData.email ? formData.email : '' %>"
+              >
+              <% if (errors.email) { %><span class="field-error"><%= errors.email %></span><% } %>
+            </div>
+
+          </div>
+        </section>
+
+        <div class="form-actions">
+          <button type="reset" class="btn btn-secondary">Ryd formular</button>
+          <button type="submit" class="btn btn-primary flex-1">Opret medarbejder</button>
+        </div>
+
+      </form>
+    </div>
+
+    <% if (employees && employees.length > 0) { %>
+        <div class="card mt-8" style="max-width:900px">
+        <section class="form-section">
+            <h3 class="section-title">Eksisterende medarbejdere</h3>
+            <table class="table" style="width:100%; border-collapse:collapse;">
+            <thead>
+                <tr>
+                <th style="text-align:left; padding:10px 16px; border-bottom:1px solid #e5e5e5;">Navn</th>
+                <th style="text-align:left; padding:10px 16px; border-bottom:1px solid #e5e5e5;">Email</th>
+                <th style="text-align:left; padding:10px 16px; border-bottom:1px solid #e5e5e5;">Rolle</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% employees.forEach(emp => { %>
+                <tr style="border-bottom:1px solid #f0f0f0;">
+                    <td style="padding:12px 16px;"><%= emp.name %></td>
+                    <td style="padding:12px 16px; color:#888;"><%= emp.email %></td>
+                    <td style="padding:12px 16px;"><%= emp.role %></td>
+                </tr>
+                <% }) %>
+            </tbody>
+            </table>
+        </section>
+        </div>
+    <% } %>
+
+    <p class="text-center text-sm mt-8" style="color:#C5C5C4">Medarbejderdata administreres lokalt i systemet</p>
+  </main>
+
+  <script>
+    const successMsg = document.getElementById('successMsg');
+    if (successMsg) {
+      setTimeout(() => {
+        successMsg.style.transition = 'opacity 0.5s';
+        successMsg.style.opacity = '0';
+        setTimeout(() => successMsg.remove(), 500);
+      }, 3000);
+    }
+  </script>
+
+</body>
+</html>
