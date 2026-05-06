@@ -30,3 +30,4 @@ Skift til rigtig autentificering ved at opdatere `routes/auth.js`.
 | `/portal/create-lead`    | Opret nyt lead        |
 | `/portal/cases`          | Status på sager       |
 | `/portal/kpi`            | KPI oversigt          |
+| `/portal/employees`      | Medarbejder oversigt  |
