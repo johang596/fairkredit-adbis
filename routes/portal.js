@@ -15,14 +15,15 @@ const MOCK_KPIS = [
   { title: 'Totalt antal leads', value: '47', change: '+12%', trend: 'up', period: 'vs. sidste måned' },
   { title: 'Godkendelsesrate', value: '94%', change: '+3%', trend: 'up', period: 'vs. sidste måned' },
   { title: 'Gennemsnitlig sagsbehandlingstid', value: '4.2 dage', change: '-0.8 dage', trend: 'up', period: 'vs. sidste måned' },
-  { title: 'Aktive sager', value: '12', change: '-2', trend: 'down', period: 'vs. sidste uge' }
+  { title: 'Aktive sager', value: '12', change: '-2', trend: 'down', period: 'vs. sidste uge' },
+  { title: 'Total provision', value: '90.400,00 kr.', trend: 'up', period: 'år til dato'}
 ];
 
 const MOCK_MONTHLY = [
-  { month: 'Januar', leads: 32, approved: 29 },
-  { month: 'Februar', leads: 38, approved: 36 },
-  { month: 'Marts', leads: 42, approved: 40 },
-  { month: 'April', leads: 47, approved: 44 }
+  { month: 'Januar', leads: 32, approved: 29, provision: '18.400,00 kr.' },
+  { month: 'Februar', leads: 38, approved: 36, provision: '21.600,00 kr.' },
+  { month: 'Marts', leads: 42, approved: 40, provision: '24.000,00 kr.' },
+  { month: 'April', leads: 47, approved: 44, provision: '26.400,00 kr.' }
 ];
 
 // In-memory employees (mock)
