@@ -28,8 +28,8 @@ const MOCK_MONTHLY = [
 
 // In-memory employees (mock)
 const MOCK_EMPLOYEES = [
-  { id: 1, name: 'Sofie Larsen', email: 'sofie@edc.dk', role: 'Ejendomsmægler' },
-  { id: 2, name: 'Jonas Madsen', email: 'jonas@edc.dk', role: 'Ejendomsmægler' }
+  { id: 1, name: 'Sofie Larsen', email: 'sofie@edc.dk', role: 'Ejendomsmægler', provision: '12.500,00 kr.' },
+  { id: 2, name: 'Jonas Madsen', email: 'jonas@edc.dk', role: 'Ejendomsmægler', provision: '26.500,00 kr.'}
 ];
 
 // GET /portal — dashboard

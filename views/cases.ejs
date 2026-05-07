@@ -38,6 +38,7 @@
               <th>Bolig</th>
               <th>Status</th>
               <th>Dato</th>
+              <th>Provision</th>
             </tr>
           </thead>
           <tbody>
@@ -48,6 +49,7 @@
                 <td class="text-muted"><%= c.property %></td>
                 <td><span class="status-badge <%= c.statusClass %>"><%= c.status %></span></td>
                 <td class="text-muted"><%= c.date %></td>
+                <td class="text-muted">0,00 kr.</td>
               </tr>
             <% }) %>
           </tbody>
