@@ -89,6 +89,7 @@
             <table class="table" style="width:100%; border-collapse:collapse;">
             <thead>
                 <tr>
+                <th style="text-align:left; padding:10px 16px; border-bottom:1px solid #e5e5e5;">Fjern</th>
                 <th style="text-align:left; padding:10px 16px; border-bottom:1px solid #e5e5e5;">Navn</th>
                 <th style="text-align:left; padding:10px 16px; border-bottom:1px solid #e5e5e5;">Email</th>
                 <th style="text-align:left; padding:10px 16px; border-bottom:1px solid #e5e5e5;">Rolle</th>
@@ -98,6 +99,7 @@
             <tbody>
                 <% employees.forEach(emp => { %>
                 <tr style="border-bottom:1px solid #f0f0f0;">
+                    <td style="padding:12px 16px; color:red; text-align: center;">X</td>
                     <td style="padding:12px 16px;"><%= emp.name %></td>
                     <td style="padding:12px 16px; color:#888;"><%= emp.email %></td>
                     <td style="padding:12px 16px;"><%= emp.role %></td>
