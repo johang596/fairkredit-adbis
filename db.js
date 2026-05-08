@@ -17,4 +17,19 @@ db.exec(`
   )
 `);
 
+// Ensure `primary_cpr` column exists (for existing DBs)
+try {
+  const cols = db.prepare("PRAGMA table_info(leads)").all();
+  const hasPrimaryCpr = cols.some(c => c.name === 'primary_cpr');
+  const hasCoApplicantCpr = cols.some(c => c.name === 'co_applicant_cpr');
+  if (!hasPrimaryCpr) {
+    db.exec("ALTER TABLE leads ADD COLUMN primary_cpr TEXT");
+  }
+  if (!hasCoApplicantCpr) {
+    db.exec("ALTER TABLE leads ADD COLUMN co_applicant_cpr TEXT");
+  }
+} catch (err) {
+  // ignore if table doesn't exist yet or other issues
+}
+
 module.exports = db;

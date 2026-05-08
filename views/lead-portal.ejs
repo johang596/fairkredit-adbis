@@ -58,6 +58,15 @@
               <% if (errors.primaryPhone) { %><span class="field-error"><%= errors.primaryPhone %></span><% } %>
             </div>
 
+            <div class="form-group">
+              <label for="primaryCpr">CPR-nummer <span class="required">*</span></label>
+              <input
+                id="primaryCpr" name="primaryCpr" type="text" class="input <%= errors.primaryCpr ? 'input-error' : '' %>"
+                placeholder="DDMMYY-XXXX"
+                value="<%= typeof formData !== 'undefined' && formData.primaryCpr ? formData.primaryCpr : '' %>"
+              >
+              <% if (errors.primaryCpr) { %><span class="field-error"><%= errors.primaryCpr %></span><% } %>
+            </div>
             <div class="form-group col-span-2">
               <label for="primaryEmail">Email <span class="required">*</span></label>
               <input
@@ -108,6 +117,12 @@
                 <label for="coApplicantPhone">Telefonnummer</label>
                 <input id="coApplicantPhone" name="coApplicantPhone" type="tel" class="input" placeholder="+45 12 34 56 78"
                   value="<%= typeof formData !== 'undefined' && formData.coApplicantPhone ? formData.coApplicantPhone : '' %>">
+              </div>
+              <div class="form-group">
+                <label for="coApplicantCpr">CPR-nummer</label>
+                <input id="coApplicantCpr" name="coApplicantCpr" type="text" class="input <%= errors.coApplicantCpr ? 'input-error' : '' %>" placeholder="DDMMYY-XXXX"
+                  value="<%= typeof formData !== 'undefined' && formData.coApplicantCpr ? formData.coApplicantCpr : '' %>">
+                <% if (errors.coApplicantCpr) { %><span class="field-error"><%= errors.coApplicantCpr %></span><% } %>
               </div>
               <div class="form-group col-span-2">
                 <label for="coApplicantEmail">Email</label>

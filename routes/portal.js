@@ -32,6 +32,12 @@ const MOCK_EMPLOYEES = [
   { id: 2, name: 'Jonas Madsen', email: 'jonas@edc.dk', role: 'Ejendomsmægler', provision: '26.500,00 kr.'}
 ];
 
+// In-memory customers (mock)
+const MOCK_CUSTOMERS = [
+  { id: 1, name: 'Sofie Larsen', email: 'sofie@edc.dk', role: 'Ejendomsmægler', provision: '12.500,00 kr.' },
+  { id: 2, name: 'Jonas Madsen', email: 'jonas@edc.dk', role: 'Ejendomsmægler', provision: '26.500,00 kr.'}
+];
+
 // GET /portal — dashboard
 router.get('/', requireAuth, (req, res) => {
   res.render('dashboard', { user: req.session.user });
@@ -44,12 +50,14 @@ router.get('/create-lead', requireAuth, (req, res) => {
 
 // POST /portal/create-lead
 router.post('/create-lead', requireAuth, (req, res) => {
-  const { primaryName, primaryPhone, primaryEmail, property, notes,
-          hasCoApplicant, coApplicantName, coApplicantPhone, coApplicantEmail } = req.body;
+    const { primaryName, primaryPhone, primaryEmail, primaryCpr, property, notes,
+      hasCoApplicant, coApplicantName, coApplicantPhone, coApplicantEmail, coApplicantCpr } = req.body;
 
   const errors = {};
   if (!primaryName) errors.primaryName = 'Navn er påkrævet';
   if (!primaryPhone) errors.primaryPhone = 'Telefonnummer er påkrævet';
+  if (!primaryCpr) errors.primaryCpr = 'CPR er påkrævet';
+  else if (!/^\d{6}-?\d{4}$/.test(primaryCpr)) errors.primaryCpr = 'Ugyldigt CPR-format';
   if (!primaryEmail) errors.primaryEmail = 'Email er påkrævet';
   else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(primaryEmail)) errors.primaryEmail = 'Ugyldig email adresse';
   if (!property) errors.property = 'Boligadresse er påkrævet';
@@ -64,13 +72,13 @@ router.post('/create-lead', requireAuth, (req, res) => {
   }
 
   db.prepare(`
-    INSERT INTO leads (primary_name, primary_phone, primary_email, property, notes,
-      has_co_applicant, co_applicant_name, co_applicant_phone, co_applicant_email)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO leads (primary_name, primary_phone, primary_email, primary_cpr, property, notes,
+      has_co_applicant, co_applicant_name, co_applicant_phone, co_applicant_email, co_applicant_cpr)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `).run(
-    primaryName, primaryPhone, primaryEmail, property, notes || null,
+    primaryName, primaryPhone, primaryEmail, primaryCpr || null, property, notes || null,
     hasCoApplicant ? 1 : 0,
-    coApplicantName || null, coApplicantPhone || null, coApplicantEmail || null
+    coApplicantName || null, coApplicantPhone || null, coApplicantEmail || null, coApplicantCpr || null
   );
 
   res.render('lead-portal', { user: req.session.user, success: true, errors: {}, formData: {} });
@@ -83,6 +91,7 @@ router.get('/cases', requireAuth, (req, res) => {
   const cases = leads.map(c => ({
     id: `FK-${c.id}`,
     client: c.primary_name,
+    cpr: c.primary_cpr || '',
     property: c.property,
     status: 'Under behandling',
     statusClass: 'status-pending',
@@ -119,6 +128,17 @@ router.get('/employees', requireAuth, (req, res) => {
   res.render('employees', {
     user: req.session.user,
     employees: MOCK_EMPLOYEES,
+    success: false,
+    errors: {},
+    formData: {}
+  });
+});
+
+// GET /portal/customers
+router.get('/customers', requireAuth, (req, res) => {
+  res.render('customers', {
+    user: req.session.user,
+    employees: MOCK_CUSTOMERS,
     success: false,
     errors: {},
     formData: {}

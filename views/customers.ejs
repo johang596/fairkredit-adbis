@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kunder – Fairkredit Portal</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <style>
+    .data-table tbody tr {
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .data-table tbody tr:hover {
+      background-color: rgba(37, 99, 235, 0.05);
+    }
+    .data-table tbody tr:hover td.customer-name {
+      color: #1e40af;
+      text-decoration: underline;
+    }
+    td.customer-name {
+      color: #2563eb;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+  </style>
+</head>
+<body class="page-portal">
+
+  <%- include('partials/topbar') %>
+
+  <main class="container py-12">
+    <a href="/portal" class="btn-back">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Tilbage til dashboard
+    </a>
+
+    <div class="mb-8">
+      <h2>Kunder</h2>
+      <p class="text-muted">Oversigt over alle kunder i systemet</p>
+    </div>
+
+    <!-- Søgefelt -->
+    <div class="search-wrapper mb-6">
+      <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" class="input search-input" placeholder="Søg efter navn, email eller telefon...">
+    </div>
+
+    <!-- Tabel -->
+    <div class="card p-0 overflow-hidden">
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Kunde-ID</th>
+              <th>Navn</th>
+              <th>Email</th>
+              <th>Telefon</th>
+              <th>By</th>
+              <th>Status</th>
+              <th>Registreret</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-primary fw-medium">FK-001</td>
+              <td class="customer-name">Anna Jensen</td>
+              <td class="text-muted">anna.jensen@email.com</td>
+              <td>40 12 34 56</td>
+              <td>København</td>
+              <td><span class="status-badge" style="background-color: #d1fae5; color: #065f46;">Lånetilbud accepteret</span></td>
+              <td class="text-muted">2024-01-15</td>
+              <td style="text-align: center; color: #9ca3af;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></td>
+            </tr>
+            <tr>
+              <td class="text-primary fw-medium">FK-002</td>
+              <td class="customer-name">Jens Andersen</td>
+              <td class="text-muted">jens.andersen@email.com</td>
+              <td>40 98 76 54</td>
+              <td>Aarhus</td>
+              <td><span class="status-badge" style="background-color: #d1fae5; color: #065f46;">Lånetilbud tildelt</span></td>
+              <td class="text-muted">2024-02-20</td>
+              <td style="text-align: center; color: #9ca3af;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></td>
+            </tr>
+            <tr>
+              <td class="text-primary fw-medium">FK-003</td>
+              <td class="customer-name">Marie Larsen</td>
+              <td class="text-muted">marie.larsen@email.com</td>
+              <td>40 55 66 77</td>
+              <td>Odense</td>
+              <td><span class="status-badge" style="background-color: #d1fae5; color: #065f46;">Lånetilbud accepteret</span></td>
+              <td class="text-muted">2024-01-08</td>
+              <td style="text-align: center; color: #9ca3af;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></td>
+            </tr>
+            <tr>
+              <td class="text-primary fw-medium">FK-004</td>
+              <td class="customer-name">Peter Kristensen</td>
+              <td class="text-muted">peter.kristensen@email.com</td>
+              <td>40 11 22 33</td>
+              <td>Aalborg</td>
+              <td><span class="status-badge" style="background-color: #fef3c7; color: #92400e;">Afventer lånetilbud</span></td>
+              <td class="text-muted">2023-12-10</td>
+              <td style="text-align: center; color: #9ca3af;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></td>
+            </tr>
+            <tr>
+              <td class="text-primary fw-medium">FK-005</td>
+              <td class="customer-name">Søren Nielsen</td>
+              <td class="text-muted">soren.nielsen@email.com</td>
+              <td>40 44 55 66</td>
+              <td>Randers</td>
+              <td><span class="status-badge" style="background-color: #d1fae5; color: #065f46;">Lånetilbud tildelt</span></td>
+              <td class="text-muted">2024-03-05</td>
+              <td style="text-align: center; color: #9ca3af;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></td>
+            </tr>
+            <tr>
+              <td class="text-primary fw-medium">FK-006</td>
+              <td class="customer-name">Lisa Müller</td>
+              <td class="text-muted">lisa.muller@email.com</td>
+              <td>40 77 88 99</td>
+              <td>Svendborg</td>
+              <td><span class="status-badge" style="background-color: #d1fae5; color: #065f46;">Lånetilbud accepteret</span></td>
+              <td class="text-muted">2024-02-28</td>
+              <td style="text-align: center; color: #9ca3af;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></td>
+            </tr>
+            <tr>
+              <td class="text-primary fw-medium">FK-007</td>
+              <td class="customer-name">Thomas Hansen</td>
+              <td class="text-muted">thomas.hansen@email.com</td>
+              <td>40 33 44 55</td>
+              <td>Kolding</td>
+              <td><span class="status-badge" style="background-color: #fef3c7; color: #92400e;">Lånetilbud sendt</span></td>
+              <td class="text-muted">2024-03-20</td>
+              <td style="text-align: center; color: #9ca3af;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></td>
+            </tr>
+            <tr>
+              <td class="text-primary fw-medium">FK-008</td>
+              <td class="customer-name">Camilla Hoffmann</td>
+              <td class="text-muted">camilla.hoffmann@email.com</td>
+              <td>40 99 88 77</td>
+              <td>Vejle</td>
+              <td><span class="status-badge" style="background-color: #d1fae5; color: #065f46;">Lånetilbud tildelt</span></td>
+              <td class="text-muted">2024-01-25</td>
+              <td style="text-align: center; color: #9ca3af;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Statistik -->
+    <div class="stats-row mt-8">
+      <div class="card stat-card">
+        <p class="stat-value text-primary">8</p>
+        <p class="text-muted text-sm">Totalt antal kunder</p>
+      </div>
+      <div class="card stat-card">
+        <p class="stat-value" style="color:#16a34a">3</p>
+        <p class="text-muted text-sm">Lånetilbud accepteret</p>
+      </div>
+      <div class="card stat-card">
+        <p class="stat-value" style="color:#16a34a">3</p>
+        <p class="text-muted text-sm">Lånetilbud tildelt</p>
+      </div>
+      <div class="card stat-card">
+        <p class="stat-value" style="color:#ca8a04">2</p>
+        <p class="text-muted text-sm">Under behandling</p>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

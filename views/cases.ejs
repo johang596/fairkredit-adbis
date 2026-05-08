@@ -35,6 +35,7 @@
             <tr>
               <th>Sagsnummer</th>
               <th>Kunde</th>
+              <th>CPR</th>
               <th>Bolig</th>
               <th>Status</th>
               <th>Dato</th>
@@ -46,6 +47,7 @@
               <tr>
                 <td class="text-primary fw-medium"><%= c.id %></td>
                 <td><%= c.client %></td>
+                <td class="text-muted"><%= c.cpr %></td>
                 <td class="text-muted"><%= c.property %></td>
                 <td><span class="status-badge <%= c.statusClass %>"><%= c.status %></span></td>
                 <td class="text-muted"><%= c.date %></td>
