@@ -3,7 +3,7 @@ const router = express.Router();
 
 // Mock users — erstat med rigtig DB-opslag i produktion
 const MOCK_USERS = [
-  { email: 'partner@fairkredit.dk', password: 'demo1234', name: 'Demo Partner' }
+  { email: 'partner@adbis.dk', password: 'demo1234', name: 'Demo Partner' }
 ];
 
 // GET /  — login side
