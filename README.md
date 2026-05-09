@@ -1,4 +1,4 @@
-# Fairkredit ADBIS – Samarbejdspartner Portal
+# Fair.Flow ADBIS – Samarbejdspartner Portal
 
 ## Kom i gang
 
@@ -17,7 +17,7 @@ npm run dev
 
 | Email                    | Adgangskode |
 |--------------------------|-------------|
-| partner@fairkredit.dk    | demo1234    |
+| partner@adbis.dk         | demo1234    |
 
 Skift til rigtig autentificering ved at opdatere `routes/auth.js`.
 
