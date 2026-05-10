@@ -26,3 +26,4 @@ Skift til rigtig autentificering ved at opdatere `routes/auth.js`.
 | `/portal/cases`          | Status på sager       |
 | `/portal/kpi`            | KPI oversigt          |
 | `/portal/employees`      | Medarbejder oversigt  |
+| `/portal/customers`      | Kunder                |
