@@ -8,11 +8,6 @@ npm start
 # → http://localhost:3000
 ```
 
-Til udvikling med auto-reload:
-```bash
-npm run dev
-```
-
 ## Login (mock)
 
 | Email                    | Adgangskode |
